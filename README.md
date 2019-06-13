@@ -11,8 +11,8 @@ This project is designed to be modular so that others can easily modify or reuse
 - [Create Sense Embeddings](#create-sense-embeddings)
 - [WSD Evaluation](#wsd-evaluation)
 - [WiC Challenge](#wic-challenge)
-- [Experiment 1: Mapping Context to Concepts](#experiment-1:-mapping-context-to-concepts)
-- [Experiment 2: Exploring Biases](#experiment-2:-exploring-biases)
+- [Experiment 1\: Mapping Context to Concepts](#experiment-1:-mapping-context-to-concepts)
+- [Experiment 2\: Exploring Biases](#experiment-2:-exploring-biases)
 - [References](#references)
 
 ## Installation
@@ -95,11 +95,11 @@ $ conda activate LMMS
 
 ## Download Sense Embeddings
 
-If you don't need to create your own sense embeddings and prefer using pretrained, you can download the embeddings we produced for the paper from the links below. The '.txt' files are in standard GloVe format, and the '.npz' are in a compressed numpy format that's also much faster to load (check 'vectorspace.py' for the code that loads these).
+If you don't need to create your own sense embeddings and prefer using pretrained, you can download the embeddings we produced for the paper from the links below. The '.txt' files are in standard GloVe format, and the '.npz' are in a compressed numpy format that's also much faster to load (check [vectorspace.py]() for the code that loads these).
 
 - LMMS 1024 (bert-large-cased) \[[.txt (2.0GB)](https://drive.google.com/open?id=10NeeLfjP4ZmromV6t8i4K-J-daNir9Qo)\] \[[.npz (0.3GB)](https://drive.google.com/open?id=1kuwkTkSBz5Gv9CB_hfaBh1DQyC2ffKq0)\] 
 - LMMS 2048 (bert-large-cased) \[[.txt (4.0GB)](https://drive.google.com/open?id=1NiQ-ZeICyR18ErK3BKRXnoIxe97xAyvo)\] \[[.npz (1.4GB)](https://drive.google.com/open?id=15kJ8cY63wUwiMstHZ5wsX4_JFLnLJTjZ)\] 
-- LMMS 2348 (bert-large-cased, fasttext-crawl-subword-6B) \[[.txt (4.6GB)](https://drive.google.com/open?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK)\] \[[.npz (1.7GB)](https://drive.google.com/open?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN)\] 
+- LMMS 2348 (bert-large-cased, fasttext-crawl-subword-600B) \[[.txt (4.6GB)](https://drive.google.com/open?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK)\] \[[.npz (1.7GB)](https://drive.google.com/open?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN)\] 
 
 ## Create Sense Embeddings
 
@@ -109,7 +109,7 @@ The creation of sense embeddings involves a series of steps that have correspond
 
 We'll provide a quick overview of each script as we go through the process of generating full-coverage sense embeddings with, and without, static components.
 
-1. train.py - Bootstrap sense embeddings from annotated corpora.
+### 1. [train.py]() - Bootstrap sense embeddings from annotated corpora.
 
 Usage description.
 
@@ -138,13 +138,29 @@ optional arguments:
                         Maximum number of examples for each sense (default: inf)
 ```
 
-2. WIP
+### 2. [extend.py]() - WIP
 
-3. WIP
+WIP
+
+### 3. [emb_glosses.py]() - WIP
+
+WIP
+
+### 4. [emb_lemmas.py]() - \[Optional\] WIP
+
+WIP
+
+### 5. [concat.py]() - WIP
+
+WIP
 
 ## WSD Evaluation
 
+### Baseline - Most Frequent Sense
+
 WIP
+
+### Nearest Neighbors
 
 ```bash
 $ python eval_nn.py -h
