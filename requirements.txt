@@ -1,0 +1,4 @@
+nltk==3.4
+bert-serving-server==1.9.1
+bert-serving-client==1.9.1
+git+git://facebookresearch/fastText/releases/tag/v0.2.0#egg=fastText
