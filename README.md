@@ -212,7 +212,7 @@ For a better understanding of what strings we're actually composing to generate 
 |    disturb%2:37:00::   | disturb - disturb , upset , trouble - move deeply                                              |
 
 
-### 4. [emb_lemmas.py]() - \[Optional\] Create sense embeddings based on lemmas (static, using fastText, many redundant).
+### 4. [emb_lemmas.py]() - \[Optional\] Create sense embeddings from lemmas (static, many redundant).
 
 Usage description.
 
