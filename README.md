@@ -207,12 +207,12 @@ For a better understanding of what strings we're actually composing to generate 
 
 | Sensekey (sk) | Embedded String (sk's lemma, all lemmas, tokenized gloss) |
 |:-------------:|:---------------------------------------------------------:|
-|     earth%1:17:00::      | earth - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on                |
-|      globe%1:17:00::     | globe - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on               |
-|      disturb%2:37:00::      | disturb - disturb , upset , trouble - move deeply                                                       |
+|    earth%1:17:00::     | earth - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on    |
+|    globe%1:17:00::     | globe - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on    |
+|    disturb%2:37:00::   | disturb - disturb , upset , trouble - move deeply                                              |
 
 
-### 4. [emb_lemmas.py]() - \[Optional\] WIP
+### 4. [emb_lemmas.py]() - \[Optional\] Create sense embeddings based on lemmas (static, using fastText, many redundant).
 
 Usage description.
 
@@ -255,17 +255,35 @@ optional arguments:
 
 To replicate, use as follows:
 
+- For LMMS_2348:
+
 ```bash
-$ python emb_lemmas.py -out_path data/vector/wn_lemmas.txt
+$ python concat.py -v1_path data/vector/wn_lemmas.txt -v2_path data/vectors/wn_glosses.txt -v3_path data/vectors/semcor_ext.32.512.txt -out_path data/vectors/lmms_2348.txt
+```
+
+- For LMMS_2048:
+
+```bash
+$ python concat.py -v1_path data/vectors/wn_glosses.txt -v2_path data/vectors/semcor_ext.32.512.txt -out_path data/vectors/lmms_2048.txt
 ```
 
 ## WSD Evaluation
+
+| Sense Embeddings (1-NN) | Senseval2 | Senseval3 | SemEval2007 | SemEval2013 | SemEval2015 | ALL |
+|:---:|:----:|:----:|:----:|:----:|:----:|:----:|
+| MFS | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
+| LMMS 1024 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
+| LMMS 2048 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
+
+Run the commands below to replicate these results with [pretrained embeddings](#download-sense-embeddings).
 
 ### Baseline - Most Frequent Sense
 
 WIP
 
 ### Nearest Neighbors
+
+Usage description.
 
 ```bash
 $ python eval_nn.py -h
@@ -295,6 +313,12 @@ optional arguments:
   -thresh THRESH        Similarity threshold (default: -1)
   -k K                  Number of Neighbors to accept (default: 1)
   -quiet                Less verbose (debug=False) (default: True)
+```
+
+To replicate, use as follows:
+
+```bash
+$ python eval_nn.py ...
 ```
 
 ## WiC Challenge
