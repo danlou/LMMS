@@ -11,8 +11,8 @@ This project is designed to be modular so that others can easily modify or reuse
 - [Create Sense Embeddings](#create-sense-embeddings)
 - [WSD Evaluation](#wsd-evaluation)
 - [WiC Challenge](#wic-challenge)
-- [Experiment 1\: Mapping Context to Concepts](#experiment-1:-mapping-context-to-concepts)
-- [Experiment 2\: Exploring Biases](#experiment-2:-exploring-biases)
+- [Experiment 1 - Mapping Context to Concepts](#experiment-1---mapping-context-to-concepts)
+- [Experiment 2 - Exploring Biases](#experiment-2---exploring-biases)
 - [References](#references)
 
 ## Installation
@@ -107,7 +107,7 @@ The creation of sense embeddings involves a series of steps that have correspond
 
 ![LMMS Scripts](misc/lmms_org.png)
 
-We'll provide a quick overview of each script as we go through the process of generating full-coverage sense embeddings with, and without, static components.
+Below you'll find usage descriptions for all the scripts along the exact command to run in order to replicate the results in the paper.
 
 ### 1. [train.py]() - Bootstrap sense embeddings from annotated corpora.
 
@@ -117,10 +117,10 @@ Usage description.
 $ python train.py -h
 usage: train.py [-h] [-wsd_fw_path WSD_FW_PATH]
                 [-dataset {semcor,semcor_omsti}] [-batch_size BATCH_SIZE]
-                [-max_seq_len MAX_SEQ_LEN] [-merge_strategy MERGE_STRATEGY]
-                [-max_instances MAX_INSTANCES]
+                [-max_seq_len MAX_SEQ_LEN] [-merge_strategy {mean,first,sum}]
+                [-max_instances MAX_INSTANCES] -out_path OUT_PATH
 
-Create Sense Embeddings
+Create Initial Sense Embeddings
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -136,23 +136,128 @@ optional arguments:
                         WordPiece Reconstruction Strategy (default: mean)
   -max_instances MAX_INSTANCES
                         Maximum number of examples for each sense (default: inf)
+  -out_path OUT_PATH    Path to resulting vector set (default: None)
 ```
 
-### 2. [extend.py]() - WIP
+To replicate, use as follows:
 
-WIP
+```bash
+$ python train.py -dataset semcor -batch_size 32 -max_seq_len 512 -out_path data/vectors/semcor.32.512.txt
+```
 
-### 3. [emb_glosses.py]() - WIP
+### 2. [extend.py]() - Propagate supervised representations (sense embeddings) through WordNet.
 
-WIP
+Usage description.
+
+```bash
+$ python extend.py -h
+usage: extend.py [-h] -sup_sv_path SUP_SV_PATH
+                 [-ext_mode {synset,hypernym,lexname}] -out_path OUT_PATH
+
+Propagates supervised sense embeddings through WordNet.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -sup_sv_path SUP_SV_PATH
+                        Path to supervised sense vectors
+  -ext_mode {synset,hypernym,lexname}
+                        Max abstraction level
+  -out_path OUT_PATH    Path to resulting extended vector set
+```
+
+To replicate, use as follows:
+
+```bash
+python extend.py -sup_sv_path data/vectors/semcor.32.512.txt -ext_mode lexname -out_path data/vectors/semcor_ext.32.512.txt
+```
+
+### 3. [emb_glosses.py]() - Create sense embeddings based on WordNet's glosses and lemmas.
+
+Usage description.
+
+```bash
+$ python emb_glosses.py -h
+usage: emb_glosses.py [-h] [-batch_size BATCH_SIZE] -out_path OUT_PATH
+
+Creates sense embeddings based on glosses and lemmas.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -batch_size BATCH_SIZE
+                        Batch size (BERT)
+  -out_path OUT_PATH    Path to resulting vector set
+```
+
+To replicate, use as follows:
+
+```bash
+$ python emb_glosses.py -out_path data/vectors/wn_glosses.txt
+```
+
+**NOTE:** To replicate the results in the paper we need to restart bert-as-service with a different pooling strategy just for this step.
+Stop the previously running bert-as-service process and restart with the command below.
+
+```bash
+$ bert-serving-start -pooling_strategy REDUCE_MEAN -model_dir data/bert/cased_L-24_H-1024_A-16 -pooling_layer -1 -2 -3 -4 -max_seq_len 256 -max_batch_size 32 -num_worker=1 -device_map 0 -cased_tokenization
+```
+
+After this step (emb_glosses.py) is concluded, stop this instance of bert-as-service and restart with the [previous parameters](#loading-bert).
+
+For a better understanding of what strings we're actually composing to generate these sense embeddings, here are a few examples from the synset 'dog.n.01':
+
+| Sensekey (sk) | Embedded String (sk's lemma, all lemmas, tokenized gloss) |
+|:-------------:|:---------------------------------------------------------:|
+|     earth%1:17:00::      | earth - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on                |
+|      globe%1:17:00::     | globe - Earth , earth , world , globe - the 3rd planet from the sun ; the planet we live on               |
+|      disturb%2:37:00::      | disturb - disturb , upset , trouble - move deeply                                                       |
+
 
 ### 4. [emb_lemmas.py]() - \[Optional\] WIP
 
-WIP
+Usage description.
 
-### 5. [concat.py]() - WIP
+```bash
+$ python emb_lemmas.py -h 
+usage: emb_lemmas.py [-h] [-ft_path FT_PATH] -out_path OUT_PATH
 
-WIP
+Creates static word embeddings for WordNet synsets (lemmas only).
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -ft_path FT_PATH    Path to fastText vectors
+  -out_path OUT_PATH  Path to resulting lemma vectors
+```
+
+To replicate, use as follows:
+
+```bash
+$ python emb_lemmas.py -out_path data/vector/wn_lemmas.txt
+```
+
+### 5. [concat.py]() - Bringing it all together.
+
+Usage description.
+
+```bash
+$ python concat.py -h    
+usage: concat.py [-h] -v1_path V1_PATH -v2_path V2_PATH [-v3_path V3_PATH]
+                 -out_path OUT_PATH
+
+Concatenates and normalizes vector .txt files.
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -v1_path V1_PATH    Path to vector set 1
+  -v2_path V2_PATH    Path to vector set 2
+  -v3_path V3_PATH    Path to vector set 3. Missing vectors are imputated from v2 (optional)
+  -out_path OUT_PATH  Path to resulting vector set
+```
+
+To replicate, use as follows:
+
+```bash
+$ python emb_lemmas.py -out_path data/vector/wn_lemmas.txt
+```
 
 ## WSD Evaluation
 
@@ -196,11 +301,11 @@ optional arguments:
 
 WIP
 
-## Experiment 1: Mapping Context to Concepts
+## Experiment 1 - Mapping Context to Concepts
 
 WIP
 
-## Experiment 2: Exploring Biases
+## Experiment 2 - Exploring Biases
 
 WIP
 

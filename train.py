@@ -111,7 +111,7 @@ def train(train_path, eval_path, vecs_path, merge_strategy='mean', max_seq_len=5
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Create Sense Embeddings', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(description='Create Initial Sense Embeddings', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-wsd_fw_path', help='Path to WSD Evaluation Framework.', required=False,
                         default='external/wsd_eval/WSD_Evaluation_Framework/')
     parser.add_argument('-dataset', default='semcor', help='Name of dataset', required=False,
@@ -121,6 +121,7 @@ if __name__ == '__main__':
     parser.add_argument('-merge_strategy', type=str, default='mean', help='WordPiece Reconstruction Strategy', required=False,
                         choices=['mean', 'first', 'sum'])
     parser.add_argument('-max_instances', type=float, default=float('inf'), help='Maximum number of examples for each sense', required=False)
+    parser.add_argument('-out_path', help='Path to resulting vector set', required=True)
     args = parser.parse_args()
 
     layers = list(range(-4, 0))[::-1]
@@ -133,19 +134,19 @@ if __name__ == '__main__':
         train_path = args.wsd_fw_path + 'Training_Corpora/SemCor+OMSTI/semcor+omsti.data.xml'
         keys_path = args.wsd_fw_path + 'Training_Corpora/SemCor+OMSTI/semcor+omsti.gold.key.txt'
 
-    vecs_path = 'data/vectors/'
-    if args.max_instances != float('inf'):
-        vecs_path += '%d.%s.%s.%s.%d.max%d.txt' % (time(),
-                                                   args.dataset,
-                                                   args.merge_strategy,
-                                                   layers_str,
-                                                   args.max_seq_len,
-                                                   args.max_instances)
-    else:
-        vecs_path += '%d.%s.%s.%s.%d.txt' % (time(),
-                                             args.dataset,
-                                             args.merge_strategy,
-                                             layers_str,
-                                             args.max_seq_len)
+    # vecs_path = 'data/vectors/'
+    # if args.max_instances != float('inf'):
+    #     vecs_path += '%d.%s.%s.%s.%d.max%d.txt' % (time(),
+    #                                                args.dataset,
+    #                                                args.merge_strategy,
+    #                                                layers_str,
+    #                                                args.max_seq_len,
+    #                                                args.max_instances)
+    # else:
+    #     vecs_path += '%d.%s.%s.%s.%d.txt' % (time(),
+    #                                          args.dataset,
+    #                                          args.merge_strategy,
+    #                                          layers_str,
+    #                                          args.max_seq_len)
 
-    train(train_path, keys_path, vecs_path, args.merge_strategy, args.max_seq_len, args.max_instances)
+    train(train_path, keys_path, args.out_path, args.merge_strategy, args.max_seq_len, args.max_instances)
