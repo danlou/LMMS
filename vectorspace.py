@@ -93,11 +93,8 @@ class SensesVSM(object):
         norms = np.linalg.norm(self.vectors, axis=1)
         self.vectors = (self.vectors.T / norms).T
 
-    def get_vec(self, label, as_numpy=True):
-        if as_numpy:
-            return np.asnumpy(self.vectors[self.indices[label]])
-        else:
-            return self.vectors[self.indices[label]]
+    def get_vec(self, label):
+        return self.vectors[self.indices[label]]
 
     def similarity(self, label1, label2):
         v1 = self.get_vec(label1)

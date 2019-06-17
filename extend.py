@@ -161,7 +161,7 @@ if __name__ == '__main__':
     n_vecs = len(senses_vsm.vectors) + len(additional_vecs)
     n_total_senses = len(all_sensekeys)  # 2069s:
     logging.info('n_vecs: %d - %d' % (n_vecs, n_total_senses))
-    logging.info('Coverage: %f' % n_vecs/n_total_senses)
+    logging.info('Coverage: %f' % (n_vecs/n_total_senses))
 
     with open(args.out_path, 'w') as extended_f:
 

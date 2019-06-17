@@ -104,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument('-ft_path', help='Path to fastText vectors', required=False,
                         default='external/fasttext/crawl-300d-2M-subword.bin')
     parser.add_argument('-wsd_fw_path', help='Path to WSD Evaluation Framework.', required=False,
-                        default='external/WSD_Evaluation_Framework/')
+                        default='external/wsd_eval/WSD_Evaluation_Framework/')
     parser.add_argument('-test_set', default='ALL', help='Name of test set', required=False,
                         choices=['senseval2', 'senseval3', 'semeval2007', 'semeval2013', 'semeval2015', 'ALL'])
     parser.add_argument('-batch_size', type=int, default=32, help='Batch size (BERT)', required=False)
