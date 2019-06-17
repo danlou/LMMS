@@ -203,7 +203,7 @@ $ bert-serving-start -pooling_strategy REDUCE_MEAN -model_dir data/bert/cased_L-
 
 After this step (emb_glosses.py) is concluded, stop this instance of bert-as-service and restart with the [previous parameters](#loading-bert).
 
-For a better understanding of what strings we're actually composing to generate these sense embeddings, here are a few examples from the synset 'dog.n.01':
+For a better understanding of what strings we're actually composing to generate these sense embeddings, here are a few examples:
 
 | Sensekey (sk) | Embedded String (sk's lemma, all lemmas, tokenized gloss) |
 |:-------------:|:---------------------------------------------------------:|
