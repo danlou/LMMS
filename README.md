@@ -279,7 +279,30 @@ Run the commands below to replicate these results with [pretrained embeddings](#
 
 ### Baseline - Most Frequent Sense
 
-WIP
+Usage description.
+
+```bash
+$ python eval_mfs.py -h
+usage: eval_mfs.py [-h] [-wsd_fw_path WSD_FW_PATH]
+                   [-test_set {senseval2,senseval3,semeval2007,semeval2013,semeval2015,ALL}]
+
+Most Frequent Sense (i.e. 1st) evaluation of WSD Evaluation Framework.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -wsd_fw_path WSD_FW_PATH
+                        Path to WSD Evaluation Framework.
+  -test_set {senseval2,senseval3,semeval2007,semeval2013,semeval2015,ALL}
+                        Name of test set
+```
+
+To replicate, use as follows:
+
+```bash
+$ python eval_mfs.py -test_set ALL
+```
+
+**Note:** This implementation of MFS is slightly better (+0.4% F1 on ALL) than the MFS results we report in the paper (which are reproduced from Raganato et al. (2017a)).
 
 ### Nearest Neighbors
 

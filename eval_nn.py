@@ -81,7 +81,7 @@ def run_scorer(wsd_fw_path, test_set, results_path):
     """Runs the official java-based scorer of the WSD Evaluation Framework."""
     cmd = 'cd %s && java Scorer %s %s' % (wsd_fw_path + 'Evaluation_Datasets/',
                                           '%s/%s.gold.key.txt' % (test_set, test_set),
-                                          results_path)
+                                          '../../../../' + results_path)
     print(cmd)
     os.system(cmd)
 
