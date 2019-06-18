@@ -366,6 +366,8 @@ $ wget https://pilehvar.github.io/wic/package/WiC_dataset.zip
 $ unzip WiC_dataset.zip
 ```
 
+As before, these scripts expect bert-as-service to be running. See [Loading BERT](#loading-bert).
+
 ### Sense Comparison
 
 To evaluate our simplest approach, sense comparison, use:
