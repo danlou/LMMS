@@ -74,7 +74,7 @@ $ unzip WSD_Evaluation_Framework.zip
 
 One of our main dependencies is [bert-as-service](https://github.com/hanxiao/bert-as-service), which we use to retrieve BERT embeddings from a separate process (server/client mode) so that BERT doesn't need to be reloaded with each script. It also includes additional features over other BERT wrappers for improved performance at scale. The client and server packages should have been installed by the previous `pip install' command, so now we need start the server with our parameters before training or running experiments.
 
-Expects a GPU with at least 8GB of RAM at GPUID 0.
+Throughout this project, we expect a GPU with at least 8GB of RAM at GPUID 0. If you have more/less GPU RAM available, you can adjust the batch_size and max_seq_len parameters.
 
 ```bash
 $ bert-serving-start -pooling_strategy NONE -model_dir data/bert/cased_L-24_H-1024_A-16 -pooling_layer -1 -2 -3 -4 -max_seq_len 512 -max_batch_size 32 -num_worker=1 -device_map 0 -cased_tokenization
@@ -97,9 +97,11 @@ $ conda activate LMMS
 
 If you don't need to create your own sense embeddings and prefer using pretrained, you can download the embeddings we produced for the paper from the links below. The '.txt' files are in standard GloVe format, and the '.npz' are in a compressed numpy format that's also much faster to load (check [vectorspace.py]() for the code that loads these).
 
-- LMMS 1024 (bert-large-cased) \[[.txt (2.0GB)](https://drive.google.com/open?id=10NeeLfjP4ZmromV6t8i4K-J-daNir9Qo)\] \[[.npz (0.3GB)](https://drive.google.com/open?id=1kuwkTkSBz5Gv9CB_hfaBh1DQyC2ffKq0)\] 
-- LMMS 2048 (bert-large-cased) \[[.txt (4.0GB)](https://drive.google.com/open?id=1NiQ-ZeICyR18ErK3BKRXnoIxe97xAyvo)\] \[[.npz (1.4GB)](https://drive.google.com/open?id=15kJ8cY63wUwiMstHZ5wsX4_JFLnLJTjZ)\] 
-- LMMS 2348 (bert-large-cased, fasttext-crawl-subword-600B) \[[.txt (4.6GB)](https://drive.google.com/open?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK)\] \[[.npz (1.7GB)](https://drive.google.com/open?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN)\] 
+- LMMS 1024 (bert-large-cased) \[[.txt (2.0GB)](https://drive.google.com/uc?id=10NeeLfjP4ZmromV6t8i4K-J-daNir9Qo&export=download)\] \[[.npz (0.3GB)](https://drive.google.com/uc?id=1kuwkTkSBz5Gv9CB_hfaBh1DQyC2ffKq0&export=download)\] 
+- LMMS 2048 (bert-large-cased) \[[.txt (4.0GB)](https://drive.google.com/uc?id=1NiQ-ZeICyR18ErK3BKRXnoIxe97xAyvo&export=download)\] \[[.npz (1.4GB)](https://drive.google.com/uc?id=15kJ8cY63wUwiMstHZ5wsX4_JFLnLJTjZ&export=download)\] 
+- LMMS 2348 (bert-large-cased, fasttext-crawl-subword-600B) \[[.txt (4.6GB)](https://drive.google.com/uc?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK&export=download)\] \[[.npz (1.7GB)](https://drive.google.com/uc?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN&export=download)\] 
+
+Place sense embeddings in data/vectors/.
 
 ## Create Sense Embeddings
 
@@ -271,9 +273,9 @@ $ python concat.py -v1_path data/vectors/wn_glosses.txt -v2_path data/vectors/se
 
 | Sense Embeddings (1-NN) | Senseval2 | Senseval3 | SemEval2007 | SemEval2013 | SemEval2015 | ALL |
 |:---:|:----:|:----:|:----:|:----:|:----:|:----:|
-| MFS | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
-| LMMS 1024 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
-| LMMS 2048 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 | 00.0 |
+| MFS | 66.8 | 66.2 | 55.2 | 63.0 | 67.8 | 65.2 |
+| LMMS 1024 | 75.4 | 74.0 | 66.4 | 72.7 | 75.3 | 73.8 |
+| LMMS 2048 | 76.3 | 75.6 | 68.1 | 75.1 | 77.0 | 75.4 |
 
 Run the commands below to replicate these results with [pretrained embeddings](#download-sense-embeddings).
 
@@ -302,7 +304,7 @@ To replicate, use as follows:
 $ python eval_mfs.py -test_set ALL
 ```
 
-**Note:** This implementation of MFS is slightly better (+0.4% F1 on ALL) than the MFS results we report in the paper (which are reproduced from Raganato et al. (2017a)).
+**NOTE:** This implementation of MFS is slightly better (+0.4% F1 on ALL) than the MFS results we report in the paper (which are reproduced from Raganato et al. (2017a)).
 
 ### Nearest Neighbors
 
@@ -341,12 +343,45 @@ optional arguments:
 To replicate, use as follows:
 
 ```bash
-$ python eval_nn.py ...
+$ python eval_nn.py -sv_path data/vectors/lmms_1024.bert-large-cased.npz -test_set ALL
 ```
+
+This script expects bert-as-service to be running. See [Loading BERT](#loading-bert).
+
+To evaluate other versions of LMMS, replace 'lmms_1024.bert-large-cased.npz' with the corresponding LMMS embeddings file (.npz or .txt).
+To evaluate on other test sets, simply replace 'ALL' with the test set's name (see options in Usage Description).
+Pretrained LMMS sense embeddings are available [here](#download-sense-embeddings).
 
 ## WiC Challenge
 
-WIP
+The [Word-in-Context (WiC)](https://pilehvar.github.io/wic/) challenge presents systems with pairs of sentences that include one word in common with the goal of evaluating the systems ability to tell if both occurrences of the word share the same meaning or not. As such, while this task doesn't require assigning specific senses to words, it's very much related to Word Sense Disambiguation.
+
+We submitted a solution based on LMMS for this challenge (2nd position), exploring a few simple approaches using the sense embeddings created in this project. Further details regarding these approaches are available on the system's description paper to appear ([arXiv]()) at [SemDeep-5 (IJCAI 2019)](http://www.dfki.de/~declerck/semdeep-5/index.html).
+
+The first (and simplest) approach we used on WiC, sense comparison, can be replicated with:
+
+```bash
+$ python ...
+```
+
+The other approaches involved training a Logistic Regression for Binary Classification based on different sets of embedding similarity features. 
+The scripts for training and evaluating the classifier replicate the best performing solution (4 features).
+
+### Training Binary Classifer
+
+```bash
+$ python ...
+```
+
+**NOTE:** This model is very small and already included in this repository at 'data/models/'.
+
+### Evaluation using Classifier
+
+```bash
+$ python ...
+```
+
+This evaluation script generates a file with the predictions that can be submitted to the task's leaderboard (only for test set).
 
 ## Experiment 1 - Mapping Context to Concepts
 
