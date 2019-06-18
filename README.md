@@ -371,7 +371,7 @@ $ unzip WiC_dataset.zip
 To evaluate our simplest approach, sense comparison, use:
 
 ```bash
-$ python ...
+$ python eval_wic_compare.py -lmms_path data/vectors/lmms_2048.bert-large-cased.npz -eval_set dev
 ```
 
 The other approaches involved training a Logistic Regression for Binary Classification based on different sets of embedding similarity features. 
