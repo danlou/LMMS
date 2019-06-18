@@ -142,7 +142,6 @@ class VSM(object):
             self.normalize()
 
     def load_txt(self, vecs_path):
-        # print('Loading VSM ...', end=' ')
         self.vectors = []
         with open(vecs_path, encoding='utf-8') as vecs_f:
             for line_idx, line in enumerate(vecs_f):
@@ -156,16 +155,12 @@ class VSM(object):
         self.vectors = np.vstack(self.vectors)
         self.indices = {l: i for i, l in enumerate(self.labels)}
         self.ndims = self.vectors.shape[1]
-        # print('Done')
 
     def normalize(self, norm='l2'):
         self.vectors = (self.vectors.T / np.linalg.norm(self.vectors, axis=1)).T
 
-    def get_vec(self, label, as_numpy=True):
-        if as_numpy:
-            return np.asnumpy(self.vectors[self.indices[label]])
-        else:
-            return self.vectors[self.indices[label]]
+    def get_vec(self, label):
+        return self.vectors[self.indices[label]]
 
     def similarity(self, label1, label2):
         v1 = self.get_vec(label1)

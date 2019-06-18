@@ -109,9 +109,9 @@ The creation of sense embeddings involves a series of steps that have correspond
 
 ![LMMS Scripts](misc/lmms_org.png)
 
-Below you'll find usage descriptions for all the scripts along the exact command to run in order to replicate the results in the paper.
+Below you'll find usage descriptions for all the scripts along with the exact command to run in order to replicate the results in the paper.
 
-### 1. [train.py]() - Bootstrap sense embeddings from annotated corpora.
+### 1. [train.py](https://github.com/danlou/LMMS/blob/master/train.py) - Bootstrap sense embeddings from annotated corpora
 
 Usage description.
 
@@ -147,7 +147,7 @@ To replicate, use as follows:
 $ python train.py -dataset semcor -batch_size 32 -max_seq_len 512 -out_path data/vectors/semcor.32.512.txt
 ```
 
-### 2. [extend.py]() - Propagate supervised representations (sense embeddings) through WordNet.
+### 2. [extend.py](https://github.com/danlou/LMMS/blob/master/extend.py) - Propagate supervised representations (sense embeddings) through WordNet
 
 Usage description.
 
@@ -173,7 +173,7 @@ To replicate, use as follows:
 python extend.py -sup_sv_path data/vectors/semcor.32.512.txt -ext_mode lexname -out_path data/vectors/semcor_ext.32.512.txt
 ```
 
-### 3. [emb_glosses.py]() - Create sense embeddings based on WordNet's glosses and lemmas.
+### 3. [emb_glosses.py](https://github.com/danlou/LMMS/blob/master/emb_glosses.py) - Create sense embeddings based on WordNet's glosses and lemmas
 
 Usage description.
 
@@ -214,7 +214,7 @@ For a better understanding of what strings we're actually composing to generate 
 |    disturb%2:37:00::   | disturb - disturb , upset , trouble - move deeply                                              |
 
 
-### 4. [emb_lemmas.py]() - \[Optional\] Create sense embeddings from lemmas (static, many redundant).
+### 4. [emb_lemmas.py](https://github.com/danlou/LMMS/blob/master/emb_lemmas.py) - \[Optional\] Create sense embeddings from lemmas (static, many redundant)
 
 Usage description.
 
@@ -236,7 +236,7 @@ To replicate, use as follows:
 $ python emb_lemmas.py -out_path data/vector/wn_lemmas.txt
 ```
 
-### 5. [concat.py]() - Bringing it all together.
+### 5. [concat.py](https://github.com/danlou/LMMS/blob/master/concat.py) - Bringing it all together
 
 Usage description.
 
@@ -354,11 +354,21 @@ Pretrained LMMS sense embeddings are available [here](#download-sense-embeddings
 
 ## WiC Challenge
 
-The [Word-in-Context (WiC)](https://pilehvar.github.io/wic/) challenge presents systems with pairs of sentences that include one word in common with the goal of evaluating the systems ability to tell if both occurrences of the word share the same meaning or not. As such, while this task doesn't require assigning specific senses to words, it's very much related to Word Sense Disambiguation.
+The [Word-in-Context (WiC)](https://pilehvar.github.io/wic/) challenge presents systems with pairs of sentences that include one word in common with the goal of evaluating the system's ability to tell if both occurrences of the word share the same meaning or not. As such, while this task doesn't require assigning specific senses to words, it's very much related to Word Sense Disambiguation.
 
-We submitted a solution based on LMMS for this challenge (2nd position), exploring a few simple approaches using the sense embeddings created in this project. Further details regarding these approaches are available on the system's description paper to appear ([arXiv]()) at [SemDeep-5 (IJCAI 2019)](http://www.dfki.de/~declerck/semdeep-5/index.html).
+We submitted a solution based on LMMS for this challenge (2nd in ranking), exploring a few simple approaches using the sense embeddings created in this project. Further details regarding these approaches are available on the system's description paper ([arXiv]()) at [SemDeep-5 (IJCAI 2019)](http://www.dfki.de/~declerck/semdeep-5/index.html) (to appear).
 
-The first (and simplest) approach we used on WiC, sense comparison, can be replicated with:
+You'll need to download the WiC dataset and place it in 'external/wic/':
+
+```bash
+$ cd external/wic
+$ wget https://pilehvar.github.io/wic/package/WiC_dataset.zip
+$ unzip WiC_dataset.zip
+```
+
+### Sense Comparison
+
+To evaluate our simplest approach, sense comparison, use:
 
 ```bash
 $ python ...
