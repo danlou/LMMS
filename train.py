@@ -134,19 +134,4 @@ if __name__ == '__main__':
         train_path = args.wsd_fw_path + 'Training_Corpora/SemCor+OMSTI/semcor+omsti.data.xml'
         keys_path = args.wsd_fw_path + 'Training_Corpora/SemCor+OMSTI/semcor+omsti.gold.key.txt'
 
-    # vecs_path = 'data/vectors/'
-    # if args.max_instances != float('inf'):
-    #     vecs_path += '%d.%s.%s.%s.%d.max%d.txt' % (time(),
-    #                                                args.dataset,
-    #                                                args.merge_strategy,
-    #                                                layers_str,
-    #                                                args.max_seq_len,
-    #                                                args.max_instances)
-    # else:
-    #     vecs_path += '%d.%s.%s.%s.%d.txt' % (time(),
-    #                                          args.dataset,
-    #                                          args.merge_strategy,
-    #                                          layers_str,
-    #                                          args.max_seq_len)
-
     train(train_path, keys_path, args.out_path, args.merge_strategy, args.max_seq_len, args.max_instances)
