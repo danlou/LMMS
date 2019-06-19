@@ -111,8 +111,8 @@ def train(train_path, eval_path, vecs_path, merge_strategy='mean', max_seq_len=5
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Create Initial Sense Embeddings', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-wsd_fw_path', help='Path to WSD Evaluation Framework.', required=False,
+    parser = argparse.ArgumentParser(description='Create Initial Sense Embeddings.', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-wsd_fw_path', help='Path to WSD Evaluation Framework', required=False,
                         default='external/wsd_eval/WSD_Evaluation_Framework/')
     parser.add_argument('-dataset', default='semcor', help='Name of dataset', required=False,
                         choices=['semcor', 'semcor_omsti'])

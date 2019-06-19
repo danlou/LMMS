@@ -1,18 +1,20 @@
 import os
 import argparse
 import logging
-from time import time
 from functools import lru_cache
 from collections import defaultdict
-from datetime import datetime
 
 import numpy as np
 from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 wn_lemmatizer = WordNetLemmatizer()
 
-from bert_as_service import bert_embed
+from sklearn.externals import joblib
 
+import sys  # for parent directory imports
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+
+from bert_as_service import bert_embed
 from vectorspace import SensesVSM
 
 
@@ -67,16 +69,20 @@ def load_wic(setname='dev', wic_path='external/wic'):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='WiC solution using LMMS for sense comparison')
-    parser.add_argument('-lmms_path', help='Path to LMMS vectors.', required=True)
-    parser.add_argument('-eval_set', default='dev', help='Evaluation set.', required=False, choices=['train', 'dev', 'test'])
+    parser = argparse.ArgumentParser(description='Evaluation of WiC solution using LMMS and LogReg for binary classification.')
+    parser.add_argument('-lmms_path', help='Path to LMMS vectors', required=True)
+    parser.add_argument('-eval_set', default='dev', help='Evaluation set', required=False, choices=['train', 'dev', 'test'])
+    parser.add_argument('-clf_path', help='Path to .pkl LR classifier', required=False,
+                        default='data/models/wic.lr_4feats_1556300807.pkl')
     args = parser.parse_args()
 
-    results_path = 'data/results/wic.%s.txt' % args.eval_set
+    logging.info('Loading LR Classifer ...')
+    clf = joblib.load(args.clf_path)
+
+    results_path = 'data/results/wic.classify.%s.txt' % args.eval_set
 
     logging.info('Loading SensesVSM ...')
     senses_vsm = SensesVSM(args.lmms_path, normalize=True)
-    sense_vsm_keys = set(senses_vsm.labels)
 
     logging.info('Processing sentences ...')
     n_instances, n_correct = 0, 0
@@ -118,20 +124,17 @@ if __name__ == '__main__':
             ex2_synsets = [(wn_sensekey2synset(sk), score) for sk, score in ex2_matches]
             ex2_wsd_vector = senses_vsm.get_vec(ex2_matches[0][0])
 
-            ex1_best = ex1_synsets[0][0]
-            ex2_best = ex2_synsets[0][0]
-
             n_instances += 1
+            s1_sim = np.dot(ex1_curr_vector, ex2_curr_vector)
+            s2_sim = np.dot(ex1_wsd_vector, ex2_wsd_vector)
+            s3_sim = np.dot(ex1_curr_vector, ex1_wsd_vector)
+            s4_sim = np.dot(ex2_curr_vector, ex2_wsd_vector)
 
-            pred = False
-            if len(ex1_synsets) == 1:
-                pred = True
-
-            elif ex1_best == ex2_best:
-                pred = True
-
-            elif ex1_best != ex2_best:
-                pred = False
+            # pred = clf.predict([[s1_sim]])[0]
+            # pred = clf.predict([[s2_sim]])[0]
+            # pred = clf.predict([[s1_sim, s2_sim]])[0]
+            # pred = clf.predict([[s2_sim, s3_sim, s4_sim]])[0]
+            pred = clf.predict([[s1_sim, s2_sim, s3_sim, s4_sim]])[0]
 
             if pred:
                 results_f.write('T\n')
@@ -145,8 +148,8 @@ if __name__ == '__main__':
 
             # print(wic_idx, pred, gold)
             # print(word, postag, idx1, idx2, ex1, ex2, gold)
-            # print(ex1_synsets)
-            # print(ex2_synsets)
+            # print(n_correct/n_instances, n_correct, n_instances)
+            # print()
 
             acc = n_correct/n_instances
             logging.info('ACC: %f (%d/%d)' % (acc, n_correct, n_instances))

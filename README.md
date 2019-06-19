@@ -122,12 +122,12 @@ usage: train.py [-h] [-wsd_fw_path WSD_FW_PATH]
                 [-max_seq_len MAX_SEQ_LEN] [-merge_strategy {mean,first,sum}]
                 [-max_instances MAX_INSTANCES] -out_path OUT_PATH
 
-Create Initial Sense Embeddings
+Create Initial Sense Embeddings.
 
 optional arguments:
   -h, --help            show this help message and exit
   -wsd_fw_path WSD_FW_PATH
-                        Path to WSD Evaluation Framework. (default: external/wsd_eval/WSD_Evaluation_Framework/)
+                        Path to WSD Evaluation Framework (default: external/wsd_eval/WSD_Evaluation_Framework/)
   -dataset {semcor,semcor_omsti}
                         Name of dataset (default: semcor)
   -batch_size BATCH_SIZE
@@ -293,7 +293,7 @@ Most Frequent Sense (i.e. 1st) evaluation of WSD Evaluation Framework.
 optional arguments:
   -h, --help            show this help message and exit
   -wsd_fw_path WSD_FW_PATH
-                        Path to WSD Evaluation Framework.
+                        Path to WSD Evaluation Framework
   -test_set {senseval2,senseval3,semeval2007,semeval2013,semeval2015,ALL}
                         Name of test set
 ```
@@ -319,14 +319,14 @@ usage: eval_nn.py [-h] -sv_path SV_PATH [-ft_path FT_PATH]
                   [-ignore_lemma] [-ignore_pos] [-thresh THRESH] [-k K]
                   [-quiet]
 
-Nearest Neighbors WSD Evaluation
+Nearest Neighbors WSD Evaluation.
 
 optional arguments:
   -h, --help            show this help message and exit
   -sv_path SV_PATH      Path to sense vectors (default: None)
   -ft_path FT_PATH      Path to fastText vectors (default: external/fastText/crawl-300d-2M-subword.bin)
   -wsd_fw_path WSD_FW_PATH
-                        Path to WSD Evaluation Framework. (default: external/wsd_eval/WSD_Evaluation_Framework/)
+                        Path to WSD Evaluation Framework (default: external/wsd_eval/WSD_Evaluation_Framework/)
   -test_set {senseval2,senseval3,semeval2007,semeval2013,semeval2015,ALL}
                         Name of test set (default: ALL)
   -batch_size BATCH_SIZE
@@ -368,32 +368,36 @@ $ unzip WiC_dataset.zip
 
 As before, these scripts expect bert-as-service to be running. See [Loading BERT](#loading-bert).
 
+The evaluation scripts generate a '.txt' file with the predictions that can be submitted to the task's leaderboard (only for test set).
+
 ### Sense Comparison
 
 To evaluate our simplest approach, sense comparison, use:
 
 ```bash
-$ python eval_wic_compare.py -lmms_path data/vectors/lmms_2048.bert-large-cased.npz -eval_set dev
+$ python wic/eval_wic_compare.py -lmms_path data/vectors/lmms_2048.bert-large-cased.npz -eval_set dev
 ```
+
+Should report an accuracy of 68.18 (dev) when finished processing all sentences.
+
+### Training Binary Classifer
 
 The other approaches involved training a Logistic Regression for Binary Classification based on different sets of embedding similarity features. 
 The scripts for training and evaluating the classifier replicate the best performing solution (4 features).
 
-### Training Binary Classifer
-
 ```bash
-$ python ...
+$ python wic/train_wic.py -lmms_path data/vectors/lmms_2048.bert-large-cased.npz
 ```
 
-**NOTE:** This model is very small and already included in this repository at 'data/models/'.
+**NOTE:** This produces a very small model that we've already included in this repository at 'data/models/'.
 
 ### Evaluation using Classifier
 
 ```bash
-$ python ...
+$ python wic/eval_wic_classify.py -lmms_path data/vectors/lmms_2048.bert-large-cased.npz -clf_path data/models/wic.lr_4feats_1556300807.pkl -eval_set dev
 ```
 
-This evaluation script generates a file with the predictions that can be submitted to the task's leaderboard (only for test set).
+Should report an accuracy of 69.12 (dev) when finished processing all sentences.
 
 ## Experiment 1 - Mapping Context to Concepts
 
