@@ -401,7 +401,19 @@ Should report an accuracy of 69.12 (dev) when finished processing all sentences.
 
 ## Experiment 1 - Mapping Context to Concepts
 
-WIP
+We include a script to replicate the results in Table 5 of our paper which allows us to glimpse how NLMs are interpreting sentences at the token-level, and seemingly making use of world knowledge learned from pretraining.
+
+You can see these matches when running the command below and typing whatever sentence you'd like to inspect.
+
+```bash
+$ python exp_mapping.py -sv_path data/vectors/lmms_1024.bert-large-cased.npz
+```
+
+If you type the first example we showcase in the paper '```Marlon Brando played Corleone in Godfather.```' you should see lists of token-level sense matches similar like these below:
+
+![LMMS Mapping](misc/lmms1024_mapping_output.png)
+
+The [exp_mapping.py](https://github.com/danlou/LMMS/blob/master/exp_mapping.py) script includes a fairly self-contained method called ```map_senses()``` that should be easy for others to use in their applications. 
 
 ## Experiment 2 - Exploring Biases
 

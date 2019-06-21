@@ -119,18 +119,6 @@ if __name__ == '__main__':
     parser.set_defaults(debug=True)
     args = parser.parse_args()
 
-    # logging.info('Running with Parameters:')
-    # logging.info('Sense Vectors Path (sv_path) - %s' % args.sv_path)
-    # logging.info('fastText Vectors Path (ft_path) - %s' % args.ft_path)
-    # logging.info('WSD Eval Framework Path (wsd_path) - %s' % args.wsd_fw_path)
-    # logging.info('Evaluation Test Set (test_set) - %s' % args.test_set)
-    # logging.info('Batch Size (batch_size) - %d' % args.batch_size)
-    # logging.info('WordPiece Merge Strategy (merge_strategy) - %s' % args.merge_strategy)
-    # logging.info('Use Lemma (ignore_lemma) - %s' % args.use_lemma)  #TO-DO: fix naming
-    # logging.info('Use Part-of-Speech (ignore_pos) - %s' % args.use_pos)  #TO-DO: fix namings
-    # logging.info('Number of Neighbors Accepted (k) - %d' % args.k)
-    # logging.info('Similarity Threshold (t) - %f' % args.thresh)
-
     """
     Load sense embeddings for evaluation.
     Check the dimensions of the sense embeddings to guess that they are composed with static embeddings.
