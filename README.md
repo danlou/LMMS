@@ -417,7 +417,15 @@ The [exp_mapping.py](https://github.com/danlou/LMMS/blob/master/exp_mapping.py) 
 
 ## Experiment 2 - Exploring Biases
 
-WIP
+The paper describes a simple method for using LMMS to uncover gender biases, for example, encoded in NLMs. The [exp_bias.py](https://github.com/danlou/LMMS/blob/master/exp_bias.py) script replicates this straightforward method we used in the paper, which is based on distance from the 'man.n.01' and 'woman.n.01' synset embeddings (estimated from the mean of their corresponding sense's embeddings).
+
+To replicate with the [pretrained embeddings](#download-sense-embeddings), use as follows:
+
+```bash
+$ python exp_bias.py -lmms1024 data/vectors/lmms_1024.bert-large-cased.npz -lmms2048 data/vectors/lmms_2048.bert-large-cased.npz
+```
+
+This script should output the bias score for a pre-selected set of synsets (those from Fig. 3 in the paper). The script can also generate the barchart using the flag ```-gen_pdf```.
 
 ## References
 
