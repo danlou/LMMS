@@ -1,6 +1,6 @@
 # Language Modelling Makes Sense (ACL 2019)
 
-This repository includes the code to replicate the experiments in the ["Language Modelling Makes Sense (ACL 2019)"]() paper.
+This repository includes the code to replicate the experiments in the ["Language Modelling Makes Sense (ACL 2019)"](https://arxiv.org/abs/1906.10007) paper.
 
 This project is designed to be modular so that others can easily modify or reuse the portions that are relevant for them. Its composed of a series of scripts that when run in sequence produce most of the work described in the paper (for simplicity, we've focused this release on BERT, let us know if you need ELMo).
 
@@ -356,7 +356,7 @@ Pretrained LMMS sense embeddings are available [here](#download-sense-embeddings
 
 The [Word-in-Context (WiC)](https://pilehvar.github.io/wic/) challenge presents systems with pairs of sentences that include one word in common with the goal of evaluating the system's ability to tell if both occurrences of the word share the same meaning or not. As such, while this task doesn't require assigning specific senses to words, it's very much related to Word Sense Disambiguation.
 
-We submitted a solution based on LMMS for this challenge (2nd in ranking), exploring a few simple approaches using the sense embeddings created in this project. Further details regarding these approaches are available on the system's description paper ([arXiv]()) at [SemDeep-5 (IJCAI 2019)](http://www.dfki.de/~declerck/semdeep-5/index.html) (to appear).
+We submitted a solution based on LMMS for this challenge (2nd in ranking), exploring a few simple approaches using the sense embeddings created in this project. Further details regarding these approaches are available on the system's description paper ([arXiv](https://arxiv.org/abs/1906.10002)) at [SemDeep-5 (IJCAI 2019)](http://www.dfki.de/~declerck/semdeep-5/index.html) (to appear).
 
 You'll need to download the WiC dataset and place it in 'external/wic/':
 
@@ -431,27 +431,24 @@ This script should output the bias score for a pre-selected set of synsets (thos
 
 ### ACL 2019
 
-Main paper about LMMS.  Forthcoming, to be updated ([arXiv]()).
+Main paper about LMMS.  Forthcoming, to be updated ([arXiv](https://arxiv.org/abs/1906.10007)).
 
 ```
-@inproceedings{lmmsacl2019,
-    title = "Language Modelling Makes Sense: Propagating Representations through WordNet for Full-Coverage Word Sense Disambiguation",
-    author = "Loureiro, Daniel  and
-      Jorge, Al{\'\i}pio",
-    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
-    year = "2019",
-    address = "Florence, Italy",
-    publisher = "Association for Computational Linguistics",
-    pages = "forthcoming",
+@inproceedings{lmms_acl2019_temp,
+  title={Language Modelling Makes Sense: Propagating Representations through WordNet for Full-Coverage Word Sense Disambiguation},
+  author={Daniel Loureiro and Al{\'\i}pio M{\'a}rio Jorge},
+  booktitle={Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
+  pages={forthcoming},
+  year={2019}
 }
 ```
 
 ### SemDeep-5 at IJCAI 2019
 
-Application of LMMS for the Word-in-Context (WiC) Challenge. Forthcoming, to be updated ([arXiv]()).
+Application of LMMS for the Word-in-Context (WiC) Challenge. Forthcoming, to be updated ([arXiv](https://arxiv.org/abs/1906.10002)).
 
 ```
-@inproceedings{LoureiroWiC,
+@inproceedings{lmms_semdeep5_temp,
   title={LIAAD at SemDeep-5 Challenge: Word-in-Context (WiC)},
   author={Daniel Loureiro and Al{\'\i}pio M{\'a}rio Jorge},
   booktitle={SemDeep-5@IJCAI 2019},
