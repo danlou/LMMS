@@ -111,6 +111,8 @@ The creation of sense embeddings involves a series of steps that have correspond
 
 Below you'll find usage descriptions for all the scripts along with the exact command to run in order to replicate the results in the paper.
 
+**NOTE:** Precomputed sense embeddings were concatenated in the order shown in the concat.py example, not following the order in this diagram, or in the paper.
+
 ### 1. [train.py](https://github.com/danlou/LMMS/blob/master/train.py) - Bootstrap sense embeddings from annotated corpora
 
 Usage description.
