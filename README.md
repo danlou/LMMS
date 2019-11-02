@@ -433,28 +433,33 @@ This script should output the bias score for a pre-selected set of synsets (thos
 
 ### ACL 2019
 
-Main paper about LMMS.  Forthcoming, to be updated ([arXiv](https://arxiv.org/abs/1906.10007)).
+Main paper about LMMS ([arXiv](https://arxiv.org/abs/1906.10007)).
 
 ```
-@inproceedings{lmms_acl2019_temp,
-  title={Language Modelling Makes Sense: Propagating Representations through WordNet for Full-Coverage Word Sense Disambiguation},
-  author={Daniel Loureiro and Al{\'\i}pio M{\'a}rio Jorge},
-  booktitle={Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
-  pages={forthcoming},
-  year={2019}
+@inproceedings{loureiro-jorge-2019-language,
+    title = "Language Modelling Makes Sense: Propagating Representations through {W}ord{N}et for Full-Coverage Word Sense Disambiguation",
+    author = "Loureiro, Daniel  and
+      Jorge, Al{\'\i}pio",
+    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2019",
+    address = "Florence, Italy",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/P19-1569",
+    doi = "10.18653/v1/P19-1569",
+    pages = "5682--5691"
 }
 ```
 
 ### SemDeep-5 at IJCAI 2019
 
-Application of LMMS for the Word-in-Context (WiC) Challenge. Forthcoming, to be updated ([arXiv](https://arxiv.org/abs/1906.10002)).
+Application of LMMS for the Word-in-Context (WiC) Challenge ([arXiv](https://arxiv.org/abs/1906.10002)).
 
 ```
-@inproceedings{lmms_semdeep5_temp,
+@inproceedings{Loureiro2019LIAADAS,
   title={LIAAD at SemDeep-5 Challenge: Word-in-Context (WiC)},
-  author={Daniel Loureiro and Al{\'\i}pio M{\'a}rio Jorge},
-  booktitle={SemDeep-5@IJCAI 2019},
-  pages={forthcoming},
+  author={Daniel Loureiro and Al{\'i}pio M{\'a}rio Jorge},
+  booktitle={SemDeep@IJCAI},
   year={2019}
 }
 ```
