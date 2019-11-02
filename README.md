@@ -103,6 +103,8 @@ If you don't need to create your own sense embeddings and prefer using pretraine
 
 Place sense embeddings in data/vectors/.
 
+**NOTE:** These precomputed sense embeddings were concatenated in the order shown in the 'concat.py' command in this README, not following the order in the diagram below, or in the paper.
+
 ## Create Sense Embeddings
 
 The creation of sense embeddings involves a series of steps that have corresponding scripts. The diagram below shows how these scripts interact to create the sense embeddings described in the paper.
@@ -110,8 +112,6 @@ The creation of sense embeddings involves a series of steps that have correspond
 ![LMMS Scripts](misc/lmms_org.png)
 
 Below you'll find usage descriptions for all the scripts along with the exact command to run in order to replicate the results in the paper.
-
-**NOTE:** Precomputed sense embeddings were concatenated in the order shown in the concat.py example, not following the order in this diagram, or in the paper.
 
 ### 1. [train.py](https://github.com/danlou/LMMS/blob/master/train.py) - Bootstrap sense embeddings from annotated corpora
 
