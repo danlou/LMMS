@@ -77,7 +77,7 @@ One of our main dependencies is [bert-as-service](https://github.com/hanxiao/ber
 Throughout this project, we expect a GPU with at least 8GB of RAM at GPUID 0. If you have more/less GPU RAM available, you can adjust the batch_size and max_seq_len parameters.
 
 ```bash
-$ bert-serving-start -pooling_strategy NONE -model_dir data/bert/cased_L-24_H-1024_A-16 -pooling_layer -1 -2 -3 -4 -max_seq_len 512 -max_batch_size 32 -num_worker=1 -device_map 0 -cased_tokenization
+$ bert-serving-start -pooling_strategy NONE -model_dir external/bert/cased_L-24_H-1024_A-16 -pooling_layer -1 -2 -3 -4 -max_seq_len 512 -max_batch_size 32 -num_worker=1 -device_map 0 -cased_tokenization
 ```
 
 After the server finishes preparing BERT for inference, you should see a message like this:
