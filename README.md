@@ -235,7 +235,7 @@ optional arguments:
 To replicate, use as follows:
 
 ```bash
-$ python emb_lemmas.py -out_path data/vector/wn_lemmas.txt
+$ python emb_lemmas.py -out_path data/vectors/wn_lemmas.txt
 ```
 
 ### 5. [concat.py](https://github.com/danlou/LMMS/blob/master/concat.py) - Bringing it all together
@@ -262,7 +262,7 @@ To replicate, use as follows:
 - For LMMS_2348:
 
 ```bash
-$ python concat.py -v1_path data/vector/wn_lemmas.txt -v2_path data/vectors/wn_glosses.txt -v3_path data/vectors/semcor_ext.32.512.txt -out_path data/vectors/lmms_2348.txt
+$ python concat.py -v1_path data/vectors/wn_lemmas.txt -v2_path data/vectors/wn_glosses.txt -v3_path data/vectors/semcor_ext.32.512.txt -out_path data/vectors/lmms_2348.txt
 ```
 
 - For LMMS_2048:
