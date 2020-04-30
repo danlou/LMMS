@@ -101,6 +101,8 @@ If you don't need to create your own sense embeddings and prefer using pretraine
 - LMMS 2048 (bert-large-cased) \[[.txt (4.0GB)](https://drive.google.com/uc?id=1NiQ-ZeICyR18ErK3BKRXnoIxe97xAyvo&export=download)\] \[[.npz (1.4GB)](https://drive.google.com/uc?id=15kJ8cY63wUwiMstHZ5wsX4_JFLnLJTjZ&export=download)\] 
 - LMMS 2348 (bert-large-cased, fasttext-crawl-subword-600B) \[[.txt (4.6GB)](https://drive.google.com/uc?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK&export=download)\] \[[.npz (1.7GB)](https://drive.google.com/uc?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN&export=download)\] 
 
+**Update 30/04/2020**: Improved sense embeddings available at http://danlou.github.io/uwa/. Learned using HF's transformers instead of bert-as-service.
+
 Place sense embeddings in data/vectors/.
 
 **NOTE:** These precomputed sense embeddings were concatenated in the order shown in the 'concat.py' command in this README, not following the order in the diagram below, or in the paper.
