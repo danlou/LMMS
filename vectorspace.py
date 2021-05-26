@@ -1,9 +1,8 @@
-from time import time
-from functools import lru_cache
-from collections import defaultdict
+# import mkl
+# mkl.set_num_threads(8)
 
+from collections import defaultdict
 import numpy as np
-from nltk.corpus import wordnet as wn
 
 
 def get_sk_type(sensekey):
@@ -69,7 +68,6 @@ class SensesVSM(object):
         self.ndims = self.vectors.shape[1]
 
     def load_aux_senses(self):
-
         self.sk_lemmas = {sk: get_sk_lemma(sk) for sk in self.labels}
         self.sk_postags = {sk: get_sk_pos(sk) for sk in self.labels}
 
@@ -102,18 +100,18 @@ class SensesVSM(object):
         return np.dot(v1, v2).tolist()
 
     def match_senses(self, vec, lemma=None, postag=None, topn=100):
-
         relevant_sks = []
         for sk in self.labels:
             if (lemma is None) or (self.sk_lemmas[sk] == lemma):
                 if (postag is None) or (self.sk_postags[sk] == postag):
                     relevant_sks.append(sk)
-        relevant_sks_idxs = [self.indices[sk] for sk in relevant_sks]
 
+        relevant_sks_idxs = [self.indices[sk] for sk in relevant_sks]
         sims = np.dot(self.vectors[relevant_sks_idxs], np.array(vec))
         matches = list(zip(relevant_sks, sims))
 
         matches = sorted(matches, key=lambda x: x[1], reverse=True)
+
         return matches[:topn]
 
     def most_similar_vec(self, vec, topn=10):
@@ -130,17 +128,24 @@ class SensesVSM(object):
 
 class VSM(object):
 
-    def __init__(self, vecs_path, normalize=True):
+    # def __init__(self, vecs_path, normalize=True):
+    def __init__(self):
         self.labels = []
         self.vectors = np.array([], dtype=np.float32)
         self.indices = {}
         self.ndims = 0
 
-        self.load_txt(vecs_path)
+        # self.load_txt(vecs_path)
 
-        if normalize:
-            self.normalize()
+        # if normalize:
+        #     self.normalize()
 
+    def load(self, vectors, labels):
+        self.vectors = vectors
+        self.labels = labels
+        self.indices = {l: i for i, l in enumerate(self.labels)}
+        self.ndims = self.vectors.shape[1]
+        
     def load_txt(self, vecs_path):
         self.vectors = []
         with open(vecs_path, encoding='utf-8') as vecs_f:
@@ -149,9 +154,7 @@ class VSM(object):
                 self.labels.append(elems[0])
                 self.vectors.append(np.array(list(map(float, elems[1:])), dtype=np.float32))
 
-                # if line_idx % 100000 == 0:
-                #     print(line_idx)
-
+        self.labels_set = set(self.labels)
         self.vectors = np.vstack(self.vectors)
         self.indices = {l: i for i, l in enumerate(self.labels)}
         self.ndims = self.vectors.shape[1]
@@ -175,5 +178,15 @@ class VSM(object):
             r.append((self.labels[top_i], sims_[top_i]))
         return r
 
+    def most_similar(self, label, topn=10):
+        return self.most_similar_vec(self.get_vec(label), topn=topn)
+
     def sims(self, vec):
         return np.dot(self.vectors, np.array(vec)).tolist()
+
+
+if __name__ == '__main__':
+
+    vecs_path = 'data/vectors/bert-large-cased/lmms-sp-wsd.bert-large-cased.vectors.txt'
+    vsm = SensesVSM(vecs_path)
+    print(len(np.unique(vsm.vectors, axis=0)))
