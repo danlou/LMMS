@@ -1,6 +1,6 @@
 # Language Modelling Makes Sense (LMMS)
 
-This repository includes the code related to the ["LMMS Reloaded: Transformer-based Sense Embeddings for Disambiguation and Beyond"](https://arxiv.org/abs/TODO) paper.
+This repository includes the code related to the ["LMMS Reloaded: Transformer-based Sense Embeddings for Disambiguation and Beyond"](https://arxiv.org/abs/2105.12449) paper.
 
 If you're interested in code for the original LMMS paper from [ACL 2019](https://www.aclweb.org/anthology/P19-1569/), click here to move to the [LMMS_ACL19](https://github.com/danlou/LMMS/tree/LMMS_ACL19) branch.
 
@@ -284,7 +284,14 @@ For easier application on downstream tasks, we also prepared demonstration files
 Current version featuring Sense Profiles, probing analysis, and extensive evaluation. Under review, you may reference preprint below.
 
 ```
-TODO
+@misc{loureiro2021lmms,
+      title={LMMS Reloaded: Transformer-based Sense Embeddings for Disambiguation and Beyond}, 
+      author={Daniel Loureiro and Alípio Mário Jorge and Jose Camacho-Collados},
+      year={2021},
+      eprint={2105.12449},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
 
 ### ACL 2019
@@ -310,7 +317,7 @@ The original LMMS paper ([ACL Anthology](https://www.aclweb.org/anthology/P19-15
 
 ### EMNLP 2020
 
-Where we improve LMMS sense embeddings using automatic annotations for unambiguous words (UWA corpus) ([ACL Anthology](https://www.aclweb.org/anthology/2020.emnlp-main.283)).
+Where we improve LMMS sense embeddings using automatic annotations for unambiguous words (UWA corpus) ([ACL Anthology](https://www.aclweb.org/anthology/2020.emnlp-main.283), [arXiv](https://arxiv.org/abs/2004.14325)).
 
 ```
 @inproceedings{loureiro-camacho-collados-2020-dont,
@@ -331,13 +338,19 @@ Where we improve LMMS sense embeddings using automatic annotations for unambiguo
 
 ### SemDeep-5 at IJCAI 2019
 
-Application of LMMS for the Word-in-Context (WiC) Challenge ([arXiv](https://arxiv.org/abs/1906.10002)).
+Application of LMMS for the Word-in-Context (WiC) Challenge ([ACL Anthology](https://www.aclweb.org/anthology/W19-5801/), [arXiv](https://arxiv.org/abs/1906.10002)).
 
 ```
-@inproceedings{Loureiro2019LIAADAS,
-  title={LIAAD at SemDeep-5 Challenge: Word-in-Context (WiC)},
-  author={Daniel Loureiro and Al{\'i}pio M{\'a}rio Jorge},
-  booktitle={SemDeep@IJCAI},
-  year={2019}
+@inproceedings{loureiro-jorge-2019-liaad,
+    title = "{LIAAD} at {S}em{D}eep-5 Challenge: Word-in-Context ({W}i{C})",
+    author = "Loureiro, Daniel  and
+      Jorge, Al{\'\i}pio",
+    booktitle = "Proceedings of the 5th Workshop on Semantic Deep Learning (SemDeep-5)",
+    month = aug,
+    year = "2019",
+    address = "Macau, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W19-5801",
+    pages = "1--5",
 }
 ```
