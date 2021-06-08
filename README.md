@@ -281,7 +281,7 @@ For easier application on downstream tasks, we also prepared demonstration files
 
 ### Under Review
 
-Current version featuring Sense Profiles, probing analysis, and extensive evaluation. Under review, you may reference preprint below.
+Current version featuring Sense Profiles, probing analysis, and extensive evaluation. Under review, you may reference the [preprint](https://arxiv.org/abs/2105.12449) below.
 
 ```
 @misc{loureiro2021lmms,
