@@ -88,8 +88,8 @@ Place downloaded sense embeddings in data/vectors/<model_name>/.
 - LMMS SP-USM: [sensekeys (0.7->2.0 GB)](https://drive.google.com/file/d/1h8zDUWxGizdC_bofecPmwcjv-j0ZYdxU/view?usp=sharing); [synsets (0.4->1.1 GB)](https://drive.google.com/file/d/17dqce5qhN5qWP_jVLYkkaC9ZEzAXI56b/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/1RHcnYnc_Cv2mMACE80byQDZ5h7vB-S-g/view?usp=sharing)
 
 ### roberta-large
-- LMMS SP-WSD: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1GJbUh1FqEUF5pGMcqtNTOl8Jainn7LMd/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/1NJnRXkmggM-ZWTJoilrlCXVhDv93nie5/view?usp=sharing)
-- LMMS SP-USM: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1JGXXjz4z3GRHkoaCn89YPMxppBrW6wRD/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/185iLdCAwu60MZtM3hEYCAMixeXDtr3vY/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/18fM4hWTMzplsLD3sa5f7MFeHd120nMfV/view?usp=sharing)
+- LMMS SP-WSD: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1rXj3d9reQb_3_qDr3_4KO4MnMC30P6q4/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/1gtMS3zOLag668NwVRzoExKnAnw9DeAhX/view?usp=sharing)
+- LMMS SP-USM: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1y8FqcOI2wTgomAU1qS5Y4E4-a3mNu55X/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/10rPU6-e1uOGiQHpErgcGPa6l6UxFd1d7/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/18caMUWErZKjj2saxabUmRpSqhdpuYwTE/view?usp=sharing)
 
 ### albert-xxlarge-v2
 - LMMS SP-WSD: [sensekeys (2.4->7.9 GB)](https://drive.google.com/file/d/1JE6fccyFGCZCJ-YzbW_mPdLFB0i5Npk7/view?usp=sharing); [synsets (1.4->4.5 GB)](https://drive.google.com/file/d/1fKhPrVR305SfIQz6yjaePyIBecfV35bM/view?usp=sharing)
