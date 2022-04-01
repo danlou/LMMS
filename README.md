@@ -279,18 +279,23 @@ For easier application on downstream tasks, we also prepared demonstration files
 
 ## References
 
-### Under Review
+### Artificial Intelligence Journal (AIJ)
 
-Current version featuring Sense Profiles, probing analysis, and extensive evaluation. Under review, you may reference the [preprint](https://arxiv.org/abs/2105.12449) below.
+Current version featuring Sense Profiles, probing analysis, and extensive evaluation ([ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0004370222000017), [arXiv (preprint)](https://arxiv.org/abs/2105.12449)).
 
 ```
-@misc{loureiro2021lmms,
-      title={LMMS Reloaded: Transformer-based Sense Embeddings for Disambiguation and Beyond}, 
-      author={Daniel Loureiro and Alípio Mário Jorge and Jose Camacho-Collados},
-      year={2021},
-      eprint={2105.12449},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@article{LOUREIRO2022103661,
+title = {LMMS reloaded: Transformer-based sense embeddings for disambiguation and beyond},
+journal = {Artificial Intelligence},
+volume = {305},
+pages = {103661},
+year = {2022},
+issn = {0004-3702},
+doi = {https://doi.org/10.1016/j.artint.2022.103661},
+url = {https://www.sciencedirect.com/science/article/pii/S0004370222000017},
+author = {Daniel Loureiro and Alípio {Mário Jorge} and Jose Camacho-Collados},
+keywords = {Semantic representations, Neural language models},
+abstract = {Distributional semantics based on neural approaches is a cornerstone of Natural Language Processing, with surprising connections to human meaning representation as well. Recent Transformer-based Language Models have proven capable of producing contextual word representations that reliably convey sense-specific information, simply as a product of self-supervision. Prior work has shown that these contextual representations can be used to accurately represent large sense inventories as sense embeddings, to the extent that a distance-based solution to Word Sense Disambiguation (WSD) tasks outperforms models trained specifically for the task. Still, there remains much to understand on how to use these Neural Language Models (NLMs) to produce sense embeddings that can better harness each NLM's meaning representation abilities. In this work we introduce a more principled approach to leverage information from all layers of NLMs, informed by a probing analysis on 14 NLM variants. We also emphasize the versatility of these sense embeddings in contrast to task-specific models, applying them on several sense-related tasks, besides WSD, while demonstrating improved performance using our proposed approach over prior work focused on sense embeddings. Finally, we discuss unexpected findings regarding layer and model performance variations, and potential applications for downstream tasks.}
 }
 ```
 
