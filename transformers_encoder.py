@@ -1,4 +1,4 @@
-# Developed with transformers.__version__ == 3.0.2
+# Developed with transformers.__version__ == 4.15.0
 
 # import mkl
 # mkl.set_dynamic(0)
@@ -6,10 +6,12 @@
 
 import torch as th
 import numpy as np
+from transformers import AutoModel, AutoTokenizer
 from transformers import BertModel, BertTokenizer
 from transformers import RobertaModel, RobertaTokenizer
 from transformers import XLNetModel, XLNetTokenizer
 from transformers import AlbertModel, AlbertTokenizer
+from transformers import DebertaV2Model, DebertaV2Tokenizer
 
 
 class TransformersEncoder():
@@ -19,6 +21,12 @@ class TransformersEncoder():
         self.nlm_model = None
         self.nlm_tokenizer = None
         self.nlm_weights = []
+
+        if 'weights_path' not in self.nlm_config:
+            self.nlm_config['weights_path'] = ''
+
+        if 'subword_op' not in self.nlm_config:
+            self.nlm_config['subword_op'] = 'mean'
 
         self.load_nlm(nlm_config['model_name_or_path'])
 
@@ -51,7 +59,7 @@ class TransformersEncoder():
             self.sep_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.sep_token, add_special_tokens=False)[0]
             self.pad_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.pad_token, add_special_tokens=False)[0]
 
-        elif model_name_or_path.startswith('roberta-'):
+        elif model_name_or_path.startswith('roberta-') or model_name_or_path.startswith('cardiffnlp/twitter-roberta-'):
             self.nlm_model = RobertaModel.from_pretrained(model_name_or_path, output_hidden_states=True)
             self.nlm_tokenizer = RobertaTokenizer.from_pretrained(model_name_or_path)
 
@@ -62,6 +70,14 @@ class TransformersEncoder():
         elif model_name_or_path.startswith('albert-'):
             self.nlm_model = AlbertModel.from_pretrained(model_name_or_path, output_hidden_states=True)
             self.nlm_tokenizer = AlbertTokenizer.from_pretrained(model_name_or_path)
+
+            self.cls_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.cls_token, add_special_tokens=False)[0]
+            self.sep_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.sep_token, add_special_tokens=False)[0]
+            self.pad_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.pad_token, add_special_tokens=False)[0]
+
+        elif model_name_or_path.startswith('microsoft/deberta-v2-'):
+            self.nlm_model = DebertaV2Model.from_pretrained(model_name_or_path, output_hidden_states=True)
+            self.nlm_tokenizer = DebertaV2Tokenizer.from_pretrained(model_name_or_path)
 
             self.cls_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.cls_token, add_special_tokens=False)[0]
             self.sep_encoding = self.nlm_tokenizer.encode(self.nlm_tokenizer.sep_token, add_special_tokens=False)[0]
@@ -79,7 +95,30 @@ class TransformersEncoder():
         return self.nlm_tokenizer.encode(token, add_special_tokens=False)
 
     def get_encodings(self, tokens):
-        return [self.encode_token(t) for t in tokens]
+
+        model_name_or_path = self.nlm_config['model_name_or_path']
+
+        if model_name_or_path.startswith('roberta-') or model_name_or_path.startswith('cardiffnlp/twitter-roberta-'):
+            
+            encodings = self.nlm_tokenizer.encode(' '.join(tokens), add_special_tokens=False)
+            decodings = [self.nlm_tokenizer.decoder[e] for e in encodings]
+
+            m = []
+            group = []
+            for encoded_id, decoded_token in zip(encodings, decodings):
+                if decoded_token[0] == 'Ġ':
+                    m.append(group)
+                    group = [encoded_id]
+                else:
+                    group.append(encoded_id)
+            
+            if len(group) > 0:
+                m.append(group)
+
+            return m
+
+        else:
+            return [self.encode_token(t) for t in tokens]
 
     def flatten_encodings(self, encodings):
         return sum(encodings, [])
@@ -94,10 +133,13 @@ class TransformersEncoder():
         elif model_name_or_path.startswith('xlnet-'):
             return encodings + [self.sep_encoding, self.cls_encoding]
 
-        elif model_name_or_path.startswith('roberta-'):
+        elif model_name_or_path.startswith('roberta-') or model_name_or_path.startswith('cardiffnlp/twitter-roberta-'):
             return [self.bos_encoding] + encodings + [self.eos_encoding]
 
         elif model_name_or_path.startswith('albert-'):
+            return [self.cls_encoding] + encodings + [self.sep_encoding]
+
+        elif model_name_or_path.startswith('microsoft/deberta-v2-'):
             return [self.cls_encoding] + encodings + [self.sep_encoding]
 
     def add_padding_encodings(self, encodings, max_len):
@@ -160,7 +202,7 @@ class TransformersEncoder():
         for sent_tokens, sent_encodings in zip(batch_sent_tokens, batch_sent_encodings):
 
             sent_encodings = self.flatten_encodings(sent_encodings)
-            sent_encodings = self.add_special_encodings(sent_encodings)
+            sent_encodings = self.add_special_encodings(sent_encodings)            
             sent_encodings = self.add_padding_encodings(sent_encodings, batch_max_len)
             input_ids.append(sent_encodings)
 
@@ -174,12 +216,14 @@ class TransformersEncoder():
         input_mask = th.tensor(input_mask).to('cuda')
         with th.no_grad():
 
-            if self.nlm_config['model_name_or_path'].startswith('xlnet-'):
-                pooled, batch_hidden_states = self.nlm_model(input_ids, attention_mask=input_mask)
-                last_layer = batch_hidden_states[-1]
-
-            else:
-                last_layer, pooled, batch_hidden_states = self.nlm_model(input_ids, attention_mask=input_mask)
+            # if self.nlm_config['model_name_or_path'].startswith('xlnet-'):
+            #     pooled, batch_hidden_states = self.nlm_model(input_ids, attention_mask=input_mask)
+            #     last_layer = batch_hidden_states[-1]
+            # 
+            # else:
+            #     # last_layer, pooled, batch_hidden_states = self.nlm_model(input_ids, attention_mask=input_mask)
+            
+            batch_hidden_states = self.nlm_model(input_ids, attention_mask=input_mask)['hidden_states']
 
         # select layers of interest
         sel_hidden_states = [batch_hidden_states[i] for i in self.nlm_config['layers']]
@@ -196,8 +240,8 @@ class TransformersEncoder():
                 else:
                     sent_embeddings = sent_embeddings[1:-1]
 
-                sent_tokens = batch_sent_tokens[sent_idx]
-                sent_encodings = batch_sent_encodings[sent_idx]
+                sent_tokens = batch_sent_tokens[sent_idx]         # ['Mr.', 'Keo', 'agreed', '.']
+                sent_encodings = batch_sent_encodings[sent_idx]   # [[1828, 119], [26835, 1186], [2675], [119]]  (bert-l)
 
                 sent_embeddings = self.merge_subword_embeddings(sent_tokens, sent_encodings, sent_embeddings, return_tokens=return_tokens)
                 merged_layer_hidden_states.append(sent_embeddings)
