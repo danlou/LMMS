@@ -69,7 +69,7 @@ If you want to represent embeddings using annotations from [UWA](http://danlou.g
 
 ## Download Sense Embeddings
 
-You can download the main LMMS-SP embeddings we produced for the paper from the links below.
+You can download the main LMMS-SP embeddings we produced for the paper from [figshare](https://figshare.com/account/home#/projects/158399).
 
 These sense embeddings should be used with the Transformer models of the same model name.
 
@@ -78,22 +78,6 @@ Tasks comparing or combining LMMS-SP embeddings with contextual embeddings need 
 We distribute sense embeddings as '.txt' files, in the standard GloVe format.
 
 Place downloaded sense embeddings in data/vectors/<model_name>/.
-
-### bert-large-cased
-- LMMS SP-WSD: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1xpw1w1hKSOB1hkkO8SydsGvhb-LQc93A/view?usp=sharing); [synsets (0.4->1.1 GB)](https://drive.google.com/file/d/1pMDnlMVtLZuGNfUjcIrRct4hcUOfYveQ/view?usp=sharing)
-- LMMS SP-USM: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1b7jMhoS-zBfot7zYlL4iVDh0io0I1Stx/view?usp=sharing); [synsets (0.4->1.1 GB)](https://drive.google.com/file/d/1qKXGdqLaAvohzkJ7vXir45C_DIAT7hoU/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/1v6ZfmFjt67pKLixFDnWJngBlezsS7w_r/view?usp=sharing)
-
-### xlnet-large-cased
-- LMMS SP-WSD: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1C8j2oKouSYs1CN3TMbPgPbdFU6i0K1jf/view?usp=sharing); [synsets (0.4->1.1 GB)](https://drive.google.com/file/d/1h8zDUWxGizdC_bofecPmwcjv-j0ZYdxU/view?usp=sharing)
-- LMMS SP-USM: [sensekeys (0.7->2.0 GB)](https://drive.google.com/file/d/1h8zDUWxGizdC_bofecPmwcjv-j0ZYdxU/view?usp=sharing); [synsets (0.4->1.1 GB)](https://drive.google.com/file/d/17dqce5qhN5qWP_jVLYkkaC9ZEzAXI56b/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/1RHcnYnc_Cv2mMACE80byQDZ5h7vB-S-g/view?usp=sharing)
-
-### roberta-large
-- LMMS SP-WSD: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1rXj3d9reQb_3_qDr3_4KO4MnMC30P6q4/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/1gtMS3zOLag668NwVRzoExKnAnw9DeAhX/view?usp=sharing)
-- LMMS SP-USM: [sensekeys (0.6->2.0 GB)](https://drive.google.com/file/d/1y8FqcOI2wTgomAU1qS5Y4E4-a3mNu55X/view?usp=sharing); [synsets (0.3->1.1 GB)](https://drive.google.com/file/d/10rPU6-e1uOGiQHpErgcGPa6l6UxFd1d7/view?usp=sharing); [synsets-300d (0.1-0.3 GB)](https://drive.google.com/file/d/18caMUWErZKjj2saxabUmRpSqhdpuYwTE/view?usp=sharing)
-
-### albert-xxlarge-v2
-- LMMS SP-WSD: [sensekeys (2.4->7.9 GB)](https://drive.google.com/file/d/1JE6fccyFGCZCJ-YzbW_mPdLFB0i5Npk7/view?usp=sharing); [synsets (1.4->4.5 GB)](https://drive.google.com/file/d/1fKhPrVR305SfIQz6yjaePyIBecfV35bM/view?usp=sharing)
-- LMMS SP-USM: [sensekeys (2.4->7.9 GB)](https://drive.google.com/file/d/18unQKiYynJPtiyBnGQcveN2Ah17BhJMf/view?usp=sharing); [synsets (1.4->4.5 GB)](https://drive.google.com/file/d/1r1vlV42WmM_Z01ktdNppYZQ4m2ArAggj/view?usp=sharing); [synsets-300d (0.1->0.3 GB)](https://drive.google.com/file/d/17wEspQpoZmuSd1f_NWZ973vj7LfJcQ_8/view?usp=sharing)
 
 
 ## Create Sense Embeddings
