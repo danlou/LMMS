@@ -95,13 +95,7 @@ $ conda activate LMMS
 
 ## Download Sense Embeddings
 
-If you don't need to create your own sense embeddings and prefer using pretrained, you can download the embeddings we produced for the paper from the links below. The '.txt' files are in standard GloVe format, and the '.npz' are in a compressed numpy format that's also much faster to load (check [vectorspace.py]() for the code that loads these).
-
-- LMMS 1024 (bert-large-cased) \[[.txt (2.0GB)](https://drive.google.com/uc?id=10NeeLfjP4ZmromV6t8i4K-J-daNir9Qo&export=download)\] \[[.npz (0.3GB)](https://drive.google.com/uc?id=1kuwkTkSBz5Gv9CB_hfaBh1DQyC2ffKq0&export=download)\] 
-- LMMS 2048 (bert-large-cased) \[[.txt (4.0GB)](https://drive.google.com/uc?id=1NiQ-ZeICyR18ErK3BKRXnoIxe97xAyvo&export=download)\] \[[.npz (1.4GB)](https://drive.google.com/uc?id=15kJ8cY63wUwiMstHZ5wsX4_JFLnLJTjZ&export=download)\] 
-- LMMS 2348 (bert-large-cased, fasttext-crawl-subword-600B) \[[.txt (4.6GB)](https://drive.google.com/uc?id=1c_ip1YvySNZ-Q27sd4f9cE3Fytv7WzKK&export=download)\] \[[.npz (1.7GB)](https://drive.google.com/uc?id=1bwXfp-lUI91JBb5WE02ExAAHT-t3fhiN&export=download)\] 
-
-**Update 30/04/2020**: Improved sense embeddings available at http://danlou.github.io/uwa/. Learned using HF's transformers instead of bert-as-service.
+If you don't need to create your own sense embeddings and prefer using pretrained, you can download the embeddings we produced for the paper from [figshare](https://figshare.com/account/home#/projects/158399). The '.txt' files are in standard GloVe format, and the '.npz' are in a compressed numpy format that's also much faster to load (check [vectorspace.py]() for the code that loads these).
 
 Place sense embeddings in data/vectors/.
 
